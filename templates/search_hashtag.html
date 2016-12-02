@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block css %}
+    <link href="{% static 'css/search-hashtag.css' %}"
+          rel="stylesheet">
+{% endblock %}
+{% block navbar %}
+    <p class="navbar-text navbar-right">Search HashTag</p>
+{% endblock %}
+{% block content %}
+<title>Hashtag - Search</title>
+<div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            <form id="search-form" action="" method="POST">{% csrf_token %}
+            <div class="input-group input-group-sm">
+                    {{ search.query.errors }}
+                    {{ search.query }}
+                  <span class="input-group-btn">
+                    <button class="btn btn-search" type="submit">search</button>
+                  </span>
+            </div><!-- /input-group -->
+          </form>
+        </div>
+		<div class="col-md-12 column tweets">
+            {% for hashtag in hashtags %}
+            {% for tweet in hashtag.tweet.all %}
+                <div class="well">
+                    <span>{{ tweet.text }}</span>
+                </div>
+            {% endfor %}
+            {% endfor %}
+            {% if not hashtags %}
+            <div class="well">
+                <span> No Tweet found.</span>
+            </div>
+            {% endif %}
+		</div>
+	</div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/typeahead.bundle.js' %}"></script>
+    <script src="{% static 'js/search-hashtag.js' %}"></script>
+{% endblock %}

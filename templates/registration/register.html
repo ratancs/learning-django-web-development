@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if register.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ register.username.label_tag }}</td>
+                <td>{{ register.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ register.email.label_tag }}</td>
+                <td>{{ register.email }}</td>
+            </tr>
+            <tr>
+                <td>{{ register.password.label_tag }}</td>
+                <td>{{ register.password }}</td>
+            </tr>
+            <tr>
+                <td>{{ register.confirm_password.label_tag }}</td>
+                <td>{{ register.confirm_password }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="signup"/>
+    </form>
+
+{% endblock %}
